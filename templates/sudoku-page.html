@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<style>
+#sudoku-wrap {
+  /*flex-basis: 50%;*/
+}
+
+.sudoku-wrap-spacer {
+  flex-grow: .5;
+}
+
+.number-cell {
+  height: 3rem;
+  width: 3rem;
+}
+
+input.cell-input {
+  text-align: center;
+}
+input.cell-input:focus {
+    outline: none;
+    border-bottom: 2px solid #ccc;
+}
+input.cell-input::-webkit-outer-spin-button,
+input.cell-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input.cell-input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+{% if state  == "win"%}
+  {% include 'win.html' %} 
+  <a href="/sudoku" hx-boost class="mt-6 px-6 py-3 bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 transition">
+     Play again
+  </a>
+{% else %}
+  <a hx-get="/get-table" hx-target='#sudoku-wrap' hx-swap='innerHtml' class="mt-6 px-6 py-3 bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 transition">
+     Generate table
+  </a>
+{% endif %}
+
+  <section id="skills" class="container mx-auto mt-12 px-4 flex-1">
+    <div class="flex gap-8 justify-around">
+      <div id='sudoku-wrap' class="flex flex-1 justify-center bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition">
+         {% include 'sudoku-table.html' %}
+      </div>
+      <div class="stats-wrap flex flex-1 bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition">
+        {% include 'stats.html' %}
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

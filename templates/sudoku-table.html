@@ -1,0 +1,13 @@
+
+<table class="border-collapse border border-gray-500">
+  {% for row in range(9) %}
+    <tr class="{% if row % 3 == 0 and row != 0 %}border-t-8 border-gray-700{% endif %}">
+      {% for col in range(9) %}
+        <td class="number-cell text-center border border-gray-500 {% if col % 3 == 0 and col != 0 %}border-l-8 border-l-gray-700{% endif %}">
+          {% set cell = grid[row][col] %}
+          {% include 'cell.html' %}
+        </td>
+      {% endfor %}
+    </tr>
+  {% endfor %}
+</table>

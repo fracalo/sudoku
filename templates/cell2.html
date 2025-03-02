@@ -1,0 +1,10 @@
+
+<input 
+  hx-trigger="input" hx-post="cell-change/{{row}}/{{col}}"
+  hx-swap="outerHTML"
+  name="cell"
+  value="{{ request.form['cell'] }}"
+  type='number' min='1' max='9' step='1'
+	class='cell-input bg-gray-800 {% if errorInput %}text-red-600 {% endif %}'>
+        1
+</input>

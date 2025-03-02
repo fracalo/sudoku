@@ -1,0 +1,15 @@
+
+<div class="flex flex-1 border-collapse border border-gray-500">
+  <div id='clock' class="text-color-gray-300">00:00</div>
+</div>
+<script>
+  let time = 0;
+  const clock = document.getElementById('clock');
+  const interval = setInterval(() => {
+    time++;
+    console.log('win is', window.win)
+    let minutes = Math.floor(time / 60);
+    let seconds = time % 60;
+    clock.innerText = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+  }, 1000);
+</script>

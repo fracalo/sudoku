@@ -1,0 +1,24 @@
+
+<input 
+  hx-post="/cell-change/{{row}}/{{col}}"
+  hx-swap="outerHTML"
+  hx-trigger="input"
+  name="cell"
+  value="{{ cell if cell > 0 else '' }}"
+  {% if not errorInput and cell > 0 %} disabled {% endif %}
+  type='number' min='1' max='9' step='1'
+  class='cell-input bg-gray-800 {% if errorInput %}text-red-600 {% endif %}' 
+  _="on click call my.select()"
+/>
+{% if state == 'winner' %}
+<script>
+confetti({
+  particleCount: 100,
+  spread: 70,
+  origin: { y: 0.6 }
+});
+setTimeout(() => {
+  window.location.href = '/sudoku/win';
+}, 3000);
+</script>
+{% endif %}

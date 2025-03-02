@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Just another online Sudoku </title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/htmx.org@1.9.2"
+  integrity="sha384-L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h"
+  crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/hyperscript.org@0.9.14"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+  </style>
+  {% block head %}
+  {% endblock %}
+</head>
+<body class="bg-gray-900 text-gray-200 min-h-screen flex flex-col items-center justify-center">
+  {% include 'header.html' %}
+  {% include 'hero.html' %}
+
+  {% block content %}
+  {% endblock %}
+
+  <!-- Footer -->
+  <footer class="w-full bg-gray-800 py-6 mt-16">
+    <div class="container mx-auto text-center">
+      <p class="text-gray-400">&copy; 2025 Sudoku World! Do what ever you want with the content of this website :D</p>
+    </div>
+  </footer>
+
+</body>
+</html>
