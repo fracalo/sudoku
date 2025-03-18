@@ -43,9 +43,9 @@ input.cell-input[type=number] {
      Play again
   </a>
 {% else %}
-  <a hx-get="/get-table" hx-target='#sudoku-wrap' hx-swap='innerHtml' class="mt-6 px-6 py-3 bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 transition">
+  <button hx-get="/get-table" hx-target='#sudoku-wrap' hx-swap='innerHtml' class="mt-6 px-6 py-3 bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 transition">
      Generate table
-  </a>
+  </button>
 {% endif %}
 
   <section id="skills" class="container mx-auto mt-12 px-4 flex-1">

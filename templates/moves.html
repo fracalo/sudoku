@@ -1,0 +1,31 @@
+
+  <section class="flex">
+    <div class="flex flex-row border-red-500">
+      <div id='moves-label' class="text-color-gray-300 pr-4">moves: </div>
+      <div id='moves' class="text-color-gray-300">0</div>
+    </div>
+  </section>
+  <script>
+  class MoveTracker {
+    constructor() {
+      this.movesEl = document.getElementById('moves');
+      this.reset()
+    }
+
+    setMoves(m) {
+      this.moves = m;
+      this.movesEl.innerText = m;
+    }
+
+    reset() {
+      this.moves = 0;
+      this.movesEl.innerText = this.moves;
+    }
+
+    getMoves() {
+      return this.moves;
+    }
+  }
+
+  window.moveTracker = new MoveTracker();
+  </script>

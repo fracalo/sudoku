@@ -19,9 +19,10 @@ def index():
 @app.route("/sudoku/", defaults={"state": "play"})
 @app.route("/sudoku/<state>")
 def sudoku(state):
-    global grid
+    global grid, moves
     if state != "win":
         grid = generate_sudoku()
+        moves = 0
     if state == "win" and not is_full(grid):
         return redirect("/sudoku")
     return render_template("sudoku-page.html", grid=grid, state=state)
@@ -29,7 +30,8 @@ def sudoku(state):
 
 @app.route("/get-table")
 def get_table():
-    global grid
+    global grid, moves
+    moves = 0
     grid = generate_sudoku()
     return render_template("sudoku-table.html", grid=grid)
 
@@ -47,6 +49,7 @@ def check_cell(rowStr, colStr):
     global grid, moves
     moves = moves + 1
     cellStr = request.form.get("cell") if request.form.get("cell") else "0"
+    gameTime = request.form.get("gameTime")
 
     cell = int(cellStr) if cellStr is not None else 0
     row = int(rowStr) if rowStr is not None else 0
@@ -62,6 +65,7 @@ def check_cell(rowStr, colStr):
                 cell=cell,
                 errorInput=(not is_valid_cell),
                 state="winner",
+                moves=moves,
             )
 
     return render_template(
@@ -70,6 +74,7 @@ def check_cell(rowStr, colStr):
         col=col,
         cell=cell,
         errorInput=(not is_valid_cell),
+        moves=moves,
     )
 
 
