@@ -9,6 +9,7 @@ app = Flask(__name__)
 # this will work only for local use
 grid = gen_empty_table()
 moves = 0
+errorMoves = 0
 
 
 @app.route("/")
@@ -36,17 +37,16 @@ def get_table():
     return render_template("sudoku-table.html", grid=grid)
 
 
-@app.route("/check-table")
-def check_table():
-    global grid
-    print("grid asf")
-    print(grid)
-    return "ciao"
+# @app.route("/check-table")
+# def check_table():
+#    global grid
+#    print(grid)
+#    return "ciao"
 
 
 @app.route("/cell-change/<rowStr>/<colStr>", methods=["POST"])
 def check_cell(rowStr, colStr):
-    global grid, moves
+    global grid, moves, errorMoves
     moves = moves + 1
     cellStr = request.form.get("cell") if request.form.get("cell") else "0"
     gameTime = request.form.get("gameTime")
@@ -55,6 +55,11 @@ def check_cell(rowStr, colStr):
     row = int(rowStr) if rowStr is not None else 0
     col = int(colStr) if colStr is not None else 0
     is_valid_cell = is_valid(grid, row, col, cell)
+
+    print(f"nononon {is_valid_cell}")
+    if not is_valid_cell:
+        errorMoves = errorMoves + 1
+        print(errorMoves)
     if is_valid_cell:
         grid[row][col] = cell
         if is_full(grid):
@@ -66,6 +71,7 @@ def check_cell(rowStr, colStr):
                 errorInput=(not is_valid_cell),
                 state="winner",
                 moves=moves,
+                errorMoves=errorMoves,
             )
 
     return render_template(
@@ -75,6 +81,7 @@ def check_cell(rowStr, colStr):
         cell=cell,
         errorInput=(not is_valid_cell),
         moves=moves,
+        errorMoves=errorMoves,
     )
 
 

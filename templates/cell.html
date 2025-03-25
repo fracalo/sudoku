@@ -31,7 +31,12 @@
 <script>
 {
   const moves = {{moves}}
-  window.moveTracker.setMoves(Number(moves));
+  const errorMoves = {{errorMoves}}
+  const moveTracker = document.querySelector('move-tracker')
+  moveTracker.setMoves(Number(moves));
+  const errorMoveTracker = document.querySelector('error-move-tracker')
+  console.log(errorMoves)
+  errorMoveTracker.setMoves(Number(errorMoves));
 }
 </script>
 
