@@ -1,4 +1,5 @@
 from flask import Flask, redirect, render_template, request, session
+from toolz import diff
 
 from sudoku.table_gen.generate_sudoku import generate_sudoku
 from sudoku.table_gen.table_gen import gen_empty_table
@@ -25,7 +26,15 @@ def index():
     session["errorMoves"] = 0
     if "allTimeRecord" not in session:
         session["allTimeRecord"] = 0
+    if "difficulty" not in session:
+        session["difficulty"] = "easy"
     return redirect("/sudoku")
+
+
+@app.route("/difficulty/<difficulty>")
+def difficulty(difficulty):
+    session["difficulty"] = difficulty
+    return redirect("/")
 
 
 @app.route("/sudoku/", defaults={"state": "play"})
@@ -34,14 +43,8 @@ def sudoku(state):
     checkSessionInitialized()
     # global grid, moves
 
-    print(state)
-    print(session["moves"])
-    print(session["errorMoves"])
-    print(session["gameTime"])
-
     if state != "win":
-        print("you winning")
-        session["grid"] = generate_sudoku()
+        session["grid"] = generate_sudoku(session["difficulty"])
         session["moves"] = 0
         session["errorMoves"] = 0
 
@@ -59,6 +62,7 @@ def sudoku(state):
         winErrorMoves=session["errorMoves"],
         winGametime=session["gameTime"],
         allTimeRecord=session["allTimeRecord"],
+        difficulty=session["difficulty"],
     )
 
 
@@ -67,7 +71,7 @@ def get_table():
     # global grid, moves
     session["moves"] = 0
     session["errorMoves"] = 0
-    session["grid"] = generate_sudoku()
+    session["grid"] = generate_sudoku(session["difficulty"])
     return render_template("sudoku-table.html", grid=session["grid"])
 
 

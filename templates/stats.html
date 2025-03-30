@@ -1,5 +1,15 @@
 
 <div class="flex flex-col flex-1 border-collapse border border-gray-500 p-3">
+  <form>
+    <label for="difficulty">Difficulty:</label>
+    <select id='difficulty' name='difficulty' class="bg-transparent border border-gray-500">
+      <option value="supernoob">Supernoob</option>
+      <option value="noob">Noob</option>
+      <option value="easy">Easy</option>
+      <option value="medium">Medium</option>
+      <option value="hard">Hard</option>
+    </select>
+  </form>
   <clock-tracker ></clock-tracker>
   <move-tracker></move-tracker>
   <error-move-tracker></error-move-tracker>
@@ -17,5 +27,11 @@
   clockTracker.startClock()
 })()
 {% endif %}
+
+const difficultySelect = document.querySelector('#difficulty')
+difficultySelect.value = '{{difficulty}}' 
+difficultySelect.addEventListener('change', () => {
+    window.location.href = `/difficulty/${difficultySelect.value}`
+})
 </script>
 
