@@ -2,7 +2,7 @@
 <input 
   hx-post="/cell-change/{{row}}/{{col}}"
   hx-vals='js:{
-    "gameTime": window.clock?.getTime()
+    "gameTime": document.querySelector("clock-tracker")?.getDuration()
   }'
   hx-swap="outerHTML"
   hx-trigger="input"
@@ -20,25 +20,24 @@
     spread: 70,
     origin: { y: 0.6 }
   });
+  document.querySelector('clock-tracker').stopClock();
   setTimeout(() => {
     window.location.href = '/sudoku/win';
   }, 3000);
+
 </script>
 {% endif %}
 
 {% if moves != null %}
-
 <script>
 {
-  const moves = {{moves}}
-  const errorMoves = {{errorMoves}}
+  const moves = {{moves or 0}}
+  const errorMoves = {{errorMoves or 0}}
   const moveTracker = document.querySelector('move-tracker')
   moveTracker.setMoves(Number(moves));
   const errorMoveTracker = document.querySelector('error-move-tracker')
-  console.log(errorMoves)
   errorMoveTracker.setMoves(Number(errorMoves));
 }
 </script>
-
 {% endif %}
 

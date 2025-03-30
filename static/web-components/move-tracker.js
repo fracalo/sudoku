@@ -7,8 +7,7 @@
       // Create the template for the component
       const template = document.createElement('template');
       template.innerHTML = `
-         <stats-item item-val='0'>moves: </item-val>
-        
+         <stats-item itemval='0'>moves: </item-val>
       `;
 
       // Append the template content to the shadow DOM
@@ -30,6 +29,12 @@
     getMoves() {
       return this.moves;
     }
+
+    //attributeChangedCallback(name, oldValue, newValue) {
+    //  if (name === 'moves') {
+    //    this.statsItem.setAttribute('itemval', newValue);
+    //  }
+    //}
   }
 
   // Register the custom element

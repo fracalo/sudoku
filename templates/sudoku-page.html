@@ -38,7 +38,6 @@ input.cell-input[type=number] {
 
 {% block content %}
 {% if state  == "win"%}
-  {% include 'win.html' %} 
   <a href="/sudoku" hx-boost class="mt-6 px-6 py-3 bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 transition">
      Play again
   </a>
@@ -59,4 +58,7 @@ input.cell-input[type=number] {
     </div>
   </section>
 
+{% endblock %}
+
+{% block scripts %}
 {% endblock %}

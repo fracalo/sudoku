@@ -1,1 +1,24 @@
-<div> you win! </div>
+<stats-item itemval='{{allTimeRecord}}'>all-time record: </stats-item>
+<div class='pt-4'>
+  <span>You win! </span>
+  {% if allTimeRecord == winGametime %}
+  <span class='pl-4'> New all time record has been set!</span>
+  {% endif %}
+</div>
+
+<script type='module'>
+{
+  const moves = {{winMoves or 0}}
+  const errorMoves = {{winErrorMoves or 0}}
+  const gameTime = {{winGametime or 0}}
+  await customElements.whenDefined('move-tracker')
+  const moveTracker = document.querySelector('move-tracker')
+  moveTracker.setMoves(Number(moves));
+  await customElements.whenDefined('error-move-tracker')
+  const errorMoveTracker = document.querySelector('error-move-tracker')
+  errorMoveTracker.setMoves(Number(errorMoves));
+  await customElements.whenDefined('clock-tracker')
+  const clockTracker = document.querySelector('clock-tracker')
+  clockTracker.setDuration(gameTime)
+}
+</script>
