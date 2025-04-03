@@ -5,14 +5,10 @@ from sudoku.table_gen.generate_sudoku import generate_sudoku
 from sudoku.table_gen.table_gen import gen_empty_table
 from sudoku.verifier.verifier import is_full, is_valid
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='../templates', static_folder='../static')
 app.secret_key = "my_v3ry_public_k3y!"
 
 
-## this will work only for local use
-# session["grid"] = gen_empty_table()
-# session["moves"] = 0
-# session["errorMoves"] = 0
 def checkSessionInitialized():
     if "grid" not in session or "moves" not in session or "errorMoves" not in session:
         return redirect("/")

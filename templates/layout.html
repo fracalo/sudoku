@@ -10,10 +10,14 @@
   crossorigin="anonymous"></script>
   <script src="https://unpkg.com/hyperscript.org@0.9.14"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
-  <script src="/static/web-components/stats-item.js" type="module" ></script>
+<script src="{{ url_for('static', filename='web-components/stats-item.js') }}" type="module"></script>
+<script src="{{ url_for('static', filename='web-components/move-tracker.js') }}" type="module"></script>
+<script src="{{ url_for('static', filename='web-components/error-move-tracker.js') }}" type="module"></script>
+<script src="{{ url_for('static', filename='web-components/clock-tracker.js') }}" type="module"></script>
+ <!-- <script src="/static/web-components/stats-item.js" type="module" ></script>
   <script src="/static/web-components/move-tracker.js" type="module" ></script>
   <script src="/static/web-components/error-move-tracker.js" type="module" ></script>
-  <script src="/static/web-components/clock-tracker.js" type="module" ></script>
+  <script src="/static/web-components/clock-tracker.js" type="module" ></script>-->
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
     body {
