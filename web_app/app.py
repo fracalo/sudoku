@@ -9,19 +9,20 @@ app.secret_key = "my_v3ry_public_k3y!"
 
 
 def checkSessionInitialized():
-    if "grid" not in session or "moves" not in session or "errorMoves" not in session:
+    if "grid" not in session or "moves" not in session or "errorMoves" not in session or "gameTime" not in session:
         return redirect("/")
 
 
 @app.route("/")
 def index():
-    recordKey = f"allTimeRecord_{session["difficulty"]}"
     # this will work only for local use
     session["grid"] = gen_empty_table()
     session["moves"] = 0
     session["errorMoves"] = 0
+    session["gameTime"] = 0
     if "difficulty" not in session:
         session["difficulty"] = "easy"
+    recordKey = f"allTimeRecord_{session['difficulty']}"
     if recordKey not in session:
         session[recordKey] = 0
     return redirect("/sudoku")
@@ -30,6 +31,9 @@ def index():
 @app.route("/difficulty/<difficulty>")
 def difficulty(difficulty):
     session["difficulty"] = difficulty
+    recordKey = f"allTimeRecord_{session['difficulty']}"
+    if recordKey not in session:
+        session[recordKey] = 0
     return redirect("/")
 
 
@@ -38,7 +42,7 @@ def difficulty(difficulty):
 def sudoku(state):
     checkSessionInitialized()
     # global grid, moves
-    recordKey = f"allTimeRecord_{session["difficulty"]}"
+    recordKey = f"allTimeRecord_{session['difficulty']}"
 
     if state != "win":
         session["grid"] = generate_sudoku(session["difficulty"])
