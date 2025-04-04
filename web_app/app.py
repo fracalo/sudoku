@@ -16,14 +16,15 @@ def checkSessionInitialized():
 
 @app.route("/")
 def index():
+    recordKey = f"allTimeRecord_{session["difficulty"]}"
     # this will work only for local use
     session["grid"] = gen_empty_table()
     session["moves"] = 0
     session["errorMoves"] = 0
-    if "allTimeRecord" not in session:
-        session["allTimeRecord"] = 0
     if "difficulty" not in session:
         session["difficulty"] = "easy"
+    if recordKey not in session:
+        session[recordKey] = 0
     return redirect("/sudoku")
 
 
@@ -33,11 +34,12 @@ def difficulty(difficulty):
     return redirect("/")
 
 
-@app.route("/sudoku/", defaults={"state": "play"})
 @app.route("/sudoku/<state>")
+@app.route("/sudoku/", defaults={"state": "play"})
 def sudoku(state):
     checkSessionInitialized()
     # global grid, moves
+    recordKey = f"allTimeRecord_{session["difficulty"]}"
 
     if state != "win":
         session["grid"] = generate_sudoku(session["difficulty"])
@@ -47,8 +49,8 @@ def sudoku(state):
     if state == "win" and not is_full(session["grid"]):
         return redirect("/sudoku")
 
-    if state == "win" and session["allTimeRecord"] > session["gameTime"]:
-        session["allTimeRecord"] = session["gameTime"]
+    if state == "win" and (session[recordKey] > session["gameTime"] or session[recordKey] == 0):
+        session[recordKey] = session["gameTime"]
 
     return render_template(
         "sudoku-page.html",
@@ -57,7 +59,7 @@ def sudoku(state):
         winMoves=session["moves"],
         winErrorMoves=session["errorMoves"],
         winGametime=session["gameTime"],
-        allTimeRecord=session["allTimeRecord"],
+        allTimeRecord=session[recordKey],
         difficulty=session["difficulty"],
     )
 
