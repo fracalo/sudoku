@@ -19,5 +19,4 @@ WORKDIR /app
 
 ENV PYTHONPATH=/usr/local/lib/python${PYTHON_VERSION}/site-packages
 
-#CMD ["main.py"]
 CMD ["standalone.py"]
