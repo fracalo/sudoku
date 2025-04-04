@@ -1,5 +1,4 @@
 from flask import Flask, redirect, render_template, request, session
-from toolz import diff
 
 from sudoku.table_gen.generate_sudoku import generate_sudoku
 from sudoku.table_gen.table_gen import gen_empty_table
